@@ -1,6 +1,7 @@
 import { DownOutlined } from "@ant-design/icons";
 import BookCard from "../components/card/BookCard";
 import { Button, Dropdown, Input, MenuProps, Space } from "antd";
+import { Link } from "react-router-dom";
 
 const items: MenuProps["items"] = [
   {
@@ -57,7 +58,7 @@ export default function AllBooks() {
       </div>
     </div>
     <div className="text-end">
-      <Button>Add New Books</Button>
+  <Link to={'/add-new-book'}>    <Button className="bg-sky-50 text-sky-500 border-none">Add New Books</Button></Link>
     </div>
   </div>
 
