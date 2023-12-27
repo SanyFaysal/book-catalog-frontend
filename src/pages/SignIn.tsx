@@ -2,10 +2,8 @@
 import { Button, Form, Input } from 'antd';
 import { Link } from 'react-router-dom';
 
-
-
 type FieldType = {
-  username?: string;
+  email?: string;
   password?: string;
   
 };
@@ -32,8 +30,8 @@ export default function SignIn() {
   >
     <h2 className='text-xl text-center mb-4' >Sign in</h2>
     <Form.Item<FieldType>
-      label="Username"
-      name="username"
+      label="Email"
+      name="email"
       rules={[{ required: true, message: 'Please input your username!' }]}
     >
       <Input className="" />
