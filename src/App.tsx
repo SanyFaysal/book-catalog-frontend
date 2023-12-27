@@ -1,7 +1,10 @@
+import Navbar from "./layout/Navbar"
+
 function App() {
   return (
     <>
-     <p className=' text-2xl font-semibold'>Hellow</p>
+    <Navbar/>
+
     </>
   )
 }
