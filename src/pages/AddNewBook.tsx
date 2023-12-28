@@ -11,6 +11,7 @@ import {
 } from "antd";
 import { useState } from "react";
 import { Form } from "antd";
+import TextArea from "antd/es/input/TextArea";
 
 type SizeType = Parameters<typeof Form>[0]["size"];
 
@@ -24,7 +25,7 @@ export default function AddNewBook() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center mb-32">
+    <div className="flex flex-col justify-center items-center mb-20">
       <h1 className="text-center text-2xl my-5">Add a new Book</h1>
       <Form
         labelCol={{ span: 4 }}
@@ -38,6 +39,10 @@ export default function AddNewBook() {
       >
         <div>
           <label>Title</label>
+          <Input name="title" placeholder=" " className="" />
+        </div>
+        <div>
+          <label>Author</label>
           <Input name="title" placeholder=" " className="" />
         </div>
         <div>
@@ -56,8 +61,12 @@ export default function AddNewBook() {
           <label>Publication Year</label>
           <DatePicker className="block" picker="year" />
         </div>
+        <div>
+          <label>About</label>
+          <TextArea className="block" />
+        </div>
         <div className="flex justify-center mt-5">
-         <Button>Add Book</Button>
+          <Button>Add Book</Button>
         </div>
       </Form>
     </div>
