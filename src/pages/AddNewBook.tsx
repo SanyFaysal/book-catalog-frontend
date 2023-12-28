@@ -1,17 +1,31 @@
-import { Button, Cascader, DatePicker, Input, InputNumber, Radio, Select, Switch, TreeSelect } from "antd";
+import {
+  Button,
+  Cascader,
+  DatePicker,
+  Input,
+  InputNumber,
+  Radio,
+  Select,
+  Switch,
+  TreeSelect,
+} from "antd";
 import { useState } from "react";
 import { Form } from "antd";
 
-type SizeType = Parameters<typeof Form>[0]['size'];
+type SizeType = Parameters<typeof Form>[0]["size"];
 
 export default function AddNewBook() {
-    const [componentSize, setComponentSize] = useState<SizeType | 'default'>('default');
+  const [componentSize, setComponentSize] = useState<SizeType | "default">(
+    "default"
+  );
 
-    const onFormLayoutChange = ({ size }: { size: SizeType }) => {
-      setComponentSize(size);
-    };
-  
-    return (
+  const onFormLayoutChange = ({ size }: { size: SizeType }) => {
+    setComponentSize(size);
+  };
+
+  return (
+    <div className="flex flex-col justify-center items-center mb-32">
+      <h1 className="text-center text-2xl my-5">Add a new Book</h1>
       <Form
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 14 }}
@@ -20,13 +34,15 @@ export default function AddNewBook() {
         onValuesChange={onFormLayoutChange}
         size={componentSize as SizeType}
         style={{ maxWidth: 600 }}
+        className="flex flex-col gap-y-2 w-1/2"
       >
-      
-        <Form.Item label="Title">
-          <Input name="title" placeholder=" " className=""/>
-        </Form.Item>
-        <Form.Item label="Genre">
-          <Select>
+        <div>
+          <label>Title</label>
+          <Input name="title" placeholder=" " className="" />
+        </div>
+        <div>
+          <label>Genre</label>
+          <Select className="block">
             <Select.Option value="demo">Demo</Select.Option>
             <Select.Option value="Fiction">Fiction</Select.Option>
             <Select.Option value="Dystopian">Dystopian</Select.Option>
@@ -34,21 +50,16 @@ export default function AddNewBook() {
             <Select.Option value="Coming-of-Age">Coming of age</Select.Option>
             <Select.Option value="Dystopian">Dystopian</Select.Option>
           </Select>
-        </Form.Item>
-        
-     
-        <Form.Item label="Publication year">
-          <DatePicker />
-        </Form.Item>
-        <Form.Item label="InputNumber">
-          <InputNumber />
-        </Form.Item>
-        <Form.Item label="Switch" valuePropName="checked">
-          <Switch />
-        </Form.Item>
-        <Form.Item label="Button">
-          <Button>Button</Button>
-        </Form.Item>
+        </div>
+
+        <div>
+          <label>Publication Year</label>
+          <DatePicker className="block" picker="year" />
+        </div>
+        <div className="flex justify-center mt-5">
+         <Button>Add Book</Button>
+        </div>
       </Form>
-    );
+    </div>
+  );
 }
