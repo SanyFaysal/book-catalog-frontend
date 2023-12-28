@@ -1,10 +1,11 @@
 
+import { UserType } from '../../types/dataTypes';
 import apiSlice from '../api';
 
 const userApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
-        signup: builder.mutation({
-            query: (data) => ({
+        signUp: builder.mutation({
+            query: (data: UserType) => ({
                 url: "/user/signup",
                 method: "POST",
                 body: data,
@@ -12,7 +13,7 @@ const userApi = apiSlice.injectEndpoints({
             invalidatesTags: ["User"],
         }),
         login: builder.mutation({
-            query: (data) => ({
+            query: (data: Partial<UserType>) => ({
                 url: "/user/login",
                 method: "POST",
                 body: data,
@@ -23,4 +24,4 @@ const userApi = apiSlice.injectEndpoints({
 });
 
 
-export const { useSignupMutation, useLoginMutation } = userApi;
+export const { useSignUpMutation, useLoginMutation } = userApi;

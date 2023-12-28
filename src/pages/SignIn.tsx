@@ -1,6 +1,10 @@
 
 import { Button, Form, Input } from 'antd';
 import { Link } from 'react-router-dom';
+import { useLoginMutation } from '../app/user/userApi';
+import { UserType } from '../types/dataTypes';
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 type FieldType = {
   email?: string;
@@ -9,29 +13,36 @@ type FieldType = {
 };
 
 export default function SignIn() {
-
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
+  const [signIn, { isSuccess, isError, isLoading, error }] = useLoginMutation()
+  const onFinish = (data: Partial<UserType>) => {
+    signIn(data)
   };
+  useEffect(() => {
+    if (isLoading) toast.loading('Loading...', { id: 'signIn' })
+    if (isSuccess) toast.success('Login success', { id: 'signIn' })
+    if (isError) {
+      const anyError: any = error;
+      toast.error(anyError.data.error, { id: 'signIn' });
+    }
+  }, [isSuccess, isLoading, isError, error])
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
-  };
 
   return (
-    <div className='h-[80vh] w-full  flex justify-center items-center'>
+    <div className='h-[70vh] w-full  flex justify-center items-center'>
       <Form
         name="basic"
         initialValues={{ remember: true }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
+
         autoComplete="off"
+        layout="vertical"
         className='border rounded-lg w-1/2 py-12 px-12 flex  flex-col justify-center '
       >
         <h2 className='text-xl text-center mb-4' >Sign in</h2>
         <Form.Item<FieldType>
           label="Email"
           name="email"
+          className='mb-1'
           rules={[{ required: true, message: 'Please input your username!' }]}
         >
           <Input className="block" />
@@ -39,8 +50,9 @@ export default function SignIn() {
 
         <Form.Item<FieldType>
           label="Password"
-          className='block'
+          className=''
           name="password"
+
           rules={[{ required: true, message: 'Please input your password!' }]}
         >
           <Input.Password />

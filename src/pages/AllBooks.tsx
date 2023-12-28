@@ -1,7 +1,7 @@
 import { DownOutlined } from "@ant-design/icons";
 import BookCard from "../components/card/BookCard";
 import { Button, Dropdown, Input, MenuProps, Space } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const items: MenuProps["items"] = [
   {
@@ -14,12 +14,13 @@ const items: MenuProps["items"] = [
   },
 ];
 export default function AllBooks() {
+  const navigate = useNavigate()
   return (
     <div className="mt-4">
       <h1 className="text-2xl text-center">All Books</h1>
 
       <div className="my-5    grid grid-cols-5 gap-3 items-center">
-      <h1 className="text-lg">Total Books: 25</h1>
+        <h1 className="text-lg">Total Books: 25</h1>
         <div className="col-span-3">
           <div className="grid grid-cols-4 gap-4 items-center justify-center">
             <div className="col-span-1">
@@ -56,14 +57,14 @@ export default function AllBooks() {
             </div>
           </div>
         </div>
-        <div className="text-end"><Link to={"/add-new-book"} >
+        <div className="flex justify-end">
           {" "}
-          <Button className="bg-sky-50 text-sky-500 border-none">
+          <Button onClick={() => navigate('/add-new-book')} className="bg-sky-50 text-sky-500 border-none">
             Add New Books
           </Button>
-        </Link></div>
+        </div>
       </div>
-    
+
       <div className="grid grid-cols-4 gap-4">
         {new Array(18).fill(null).map((_, index) => (
           <BookCard key={index} />

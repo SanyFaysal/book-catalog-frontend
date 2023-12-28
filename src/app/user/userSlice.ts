@@ -1,11 +1,8 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { ErrorPayload } from "vite/types/hmrPayload.js";
+import { UserType } from "../../types/dataTypes";
+// import { ErrorPayload } from "vite/types/hmrPayload.js";
 
-type UserType = {
-    fullName: string,
-    email: string,
-    _id: string
-}
+
 type InitialStateType = {
     user?: UserType,
     isLoading?: boolean,

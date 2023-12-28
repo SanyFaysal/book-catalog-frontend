@@ -1,11 +1,12 @@
 import { Button, Card } from "antd";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ReviewCard from "../components/card/ReviewCard";
 import AddReviewModal from "../components/modal/AddReviewModal";
 import { useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 
 export default function BookDetails() {
+    const navigate = useNavigate();
     const { bookId } = useParams();
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     return (
@@ -20,7 +21,7 @@ export default function BookDetails() {
                     <p className="mt-3">Published in <span className="font-semibold">2023</span></p>
                 </div>
                 <div className="flex gap-3">
-                    <Button type="primary" ghost>
+                    <Button onClick={() => navigate(`/edit-book/${bookId}`)} type="primary" ghost>
                         Edit
                     </Button>
                     <Button type="primary" danger ghost>
