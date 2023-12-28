@@ -2,6 +2,7 @@ import { DownOutlined } from "@ant-design/icons";
 import BookCard from "../components/card/BookCard";
 import { Button, Dropdown, Input, MenuProps, Space } from "antd";
 import { Link, useNavigate } from "react-router-dom";
+import { useGetBooksQuery } from "../app/book/bookApi";
 
 const items: MenuProps["items"] = [
   {
@@ -15,6 +16,8 @@ const items: MenuProps["items"] = [
 ];
 export default function AllBooks() {
   const navigate = useNavigate()
+  const query = ""
+  const { data, isError, isLoading, isSuccess } = useGetBooksQuery(query)
   return (
     <div className="mt-4">
       <h1 className="text-2xl text-center">All Books</h1>
@@ -66,8 +69,8 @@ export default function AllBooks() {
       </div>
 
       <div className="grid grid-cols-4 gap-4">
-        {new Array(18).fill(null).map((_, index) => (
-          <BookCard key={index} />
+        {data?.data?.map((book: any) => (
+          <BookCard key={book?._id} book={book} />
         ))}
       </div>
     </div>

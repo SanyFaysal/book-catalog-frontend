@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 
 export default function Navbar() {
   const dispatch = useAppDispatch()
-  const { user } = useAppSelector((state) => state.auth);
+  const user = useAppSelector((state) => state.auth.user);
 
   const handleLogOut = () => {
     dispatch(logOut())

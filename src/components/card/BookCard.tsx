@@ -1,13 +1,20 @@
+import { ClockCircleOutlined } from "@ant-design/icons";
 import { Button, Card } from "antd";
 import { Link } from "react-router-dom";
 
+interface BookCardProps {
+  book: any;
 
-export default function BookCard() {
+}
+
+const BookCard: React.FC<BookCardProps> = ({ book }) => {
+
   return (
-    <Card title="Default size card sit amet consectetur " extra={<Link to="/book-details/2" className=""><Button value={'small'}>More</Button></Link>} >
-    <p>Card content Lorem ipsum dolor, </p>
-    <p>Card content</p>
-    <p>Card content</p>
-  </Card>
+    <Card title={book?.title} extra={<Link to="/book-details/2" className=""><Button value={'small'}>More</Button></Link>} >
+      <p>Written by <span className="font-medium"> {book?.author}</span></p>
+      <p>Genre : {book?.genre}</p>
+      <p className="mt-3"><ClockCircleOutlined className="mr-2" />Published in {book?.publication_year}</p>
+    </Card>
   )
 }
+export default BookCard;

@@ -3,3 +3,10 @@ export type UserType = {
     email: string,
     _id: string
 }
+
+export type BookType = {
+    title: string,
+    author: string,
+    genre: string,
+    publication_year: string
+}
