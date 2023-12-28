@@ -3,12 +3,13 @@ import { useParams } from "react-router-dom";
 import ReviewCard from "../components/card/ReviewCard";
 import AddReviewModal from "../components/modal/AddReviewModal";
 import { useState } from "react";
+import { PlusOutlined } from "@ant-design/icons";
 
 export default function BookDetails() {
     const { bookId } = useParams();
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     return (
-        <div className="w-4/5 mx-auto my-5">
+        <div className=" mx-auto my-5">
             <div className="flex justify-between">
 
                 <div>
@@ -32,7 +33,7 @@ export default function BookDetails() {
             <div className="mt-5">
                 <div className="flex justify-between mb-4 items-center">
                     <h5 className="font-semibold ">Reviews (8)</h5>
-                    <Button onClick={() => setIsModalOpen(true)}>Add Review</Button>
+                    <Button onClick={() => setIsModalOpen(true)} className="flex items-center"><PlusOutlined /> Add Review</Button>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                     <ReviewCard />
