@@ -1,9 +1,12 @@
 import { Button, Form, Input } from "antd";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserType } from "../types/dataTypes";
 import { useSignUpMutation } from "../app/user/userApi";
 import { useEffect } from "react";
+import { setUser } from "../app/user/userSlice";
+import { useAppDispatch } from "../app/hooks";
+import { setToken } from "../utils/setToken";
 
 type FieldType = {
   fullName?: string;
@@ -12,16 +15,23 @@ type FieldType = {
 };
 
 export default function SignUp() {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate()
 
-
-  const [signUp, { isSuccess, isError, error, isLoading }] = useSignUpMutation()
+  const [signUp, { data, isSuccess, isError, error, isLoading }] = useSignUpMutation()
   const onFinish = (data: UserType) => {
     signUp(data)
   };
 
   useEffect(() => {
     if (isLoading) toast.loading('Loading...', { id: 'signUp' })
-    if (isSuccess) toast.success('Success', { id: 'signUp' })
+    if (isSuccess) {
+      dispatch(setUser(data?.data))
+      navigate('/')
+      setToken(data?.token)
+
+      toast.success('Success', { id: 'signUp' })
+    }
     if (isError) {
 
       const anyError: any = error;

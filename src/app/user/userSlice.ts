@@ -1,5 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { UserType } from "../../types/dataTypes";
+import { server_url } from "../../config";
 // import { ErrorPayload } from "vite/types/hmrPayload.js";
 
 
@@ -23,8 +24,8 @@ const initialState: InitialStateType = {
     error: ''
 }
 
-export const fetchUser = createAsyncThunk('user/fetchUser', async (token) => {
-    const response = await fetch(`${process.env.SERVER_API}/user/me`, {
+export const fetchUser = createAsyncThunk('user/fetchUser', async (token: string) => {
+    const response = await fetch(`${server_url}/user/me`, {
         headers: {
             authorization: `Bearer ${token}`,
         },

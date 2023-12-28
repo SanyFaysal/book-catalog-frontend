@@ -1,25 +1,35 @@
 
 import { Button, Form, Input } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../app/user/userApi';
 import { UserType } from '../types/dataTypes';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
+import { useAppDispatch } from '../app/hooks';
+import { setUser } from '../app/user/userSlice';
+import { setToken } from '../utils/setToken';
 
 type FieldType = {
   email?: string;
   password?: string;
-
 };
 
 export default function SignIn() {
-  const [signIn, { isSuccess, isError, isLoading, error }] = useLoginMutation()
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const [signIn, { data, isSuccess, isError, isLoading, error }] = useLoginMutation()
   const onFinish = (data: Partial<UserType>) => {
     signIn(data)
   };
   useEffect(() => {
     if (isLoading) toast.loading('Loading...', { id: 'signIn' })
-    if (isSuccess) toast.success('Login success', { id: 'signIn' })
+    if (isSuccess) {
+      dispatch(setUser(data?.data))
+      navigate('/')
+      console.log(data?.token, 'token')
+      setToken(data?.token)
+      toast.success('Login success', { id: 'signIn' })
+    }
     if (isError) {
       const anyError: any = error;
       toast.error(anyError.data.error, { id: 'signIn' });
