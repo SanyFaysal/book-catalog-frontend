@@ -30,6 +30,16 @@ const bookApi = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ["Books"],
         }),
+        deleteBook: builder.mutation({
+            query: ({ token, bookId }: { token: string, bookId: string }) => ({
+                url: `/book/${bookId}`,
+                method: "DELETE",
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            }),
+            invalidatesTags: ["Books"],
+        }),
         getBooks: builder.query({
             query: () => ({
                 url: `/book`,
@@ -70,4 +80,5 @@ export const {
     useGetBookByIdQuery,
     useAddReviewMutation,
     useEditBookMutation,
+    useDeleteBookMutation
 } = bookApi;

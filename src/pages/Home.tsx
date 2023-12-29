@@ -1,14 +1,17 @@
+import { useGetBooksQuery } from "../app/book/bookApi";
 import BookCard from "../components/card/BookCard";
+import { BookType } from "../types/dataTypes";
 
 export default function Home() {
+  const { data } = useGetBooksQuery()
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className="grid grid-cols-3 gap-4">
 
-        {
-            new Array(8).fill(null).map((_, index)=>(
-                <BookCard key={index}/>
-            ))
-        }
+      {
+        data?.data?.map((book: BookType) => (
+          <BookCard key={book?._id} book={book} />
+        ))
+      }
     </div>
   )
 }

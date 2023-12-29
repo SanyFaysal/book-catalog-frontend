@@ -7,14 +7,14 @@ import { useAddReviewMutation } from "../../app/book/bookApi";
 import toast from "react-hot-toast";
 
 interface AddReviewModalProps {
-    isModalOpen: boolean;
-    setIsModalOpen: any;
+    reviewModalOpen: boolean;
+    setReviewModalOpen: any;
     bookId: string;
 }
 
 const AddReviewModal: React.FC<AddReviewModalProps> = ({
-    isModalOpen,
-    setIsModalOpen,
+    reviewModalOpen,
+    setReviewModalOpen,
     bookId,
 }) => {
     const token = getToken() as string;
@@ -27,7 +27,7 @@ const AddReviewModal: React.FC<AddReviewModalProps> = ({
         if (isLoading) toast.loading('Loading...', { id: 'addReview' })
         if (isSuccess) {
             toast.success('Success', { id: 'addReview' })
-            setIsModalOpen(false)
+            setReviewModalOpen(false)
         }
         if (isError) {
             const anyError: any = error;
@@ -40,8 +40,8 @@ const AddReviewModal: React.FC<AddReviewModalProps> = ({
                 title="Add Your Personal Review"
                 footer
                 centered
-                visible={isModalOpen}
-                onCancel={() => setIsModalOpen(false)}
+                visible={reviewModalOpen}
+                onCancel={() => setReviewModalOpen(false)}
             >
                 <Form labelCol={{ span: 15 }} layout="vertical" onFinish={onFinish}>
                     <Form.Item<ReviewType>
@@ -66,7 +66,7 @@ const AddReviewModal: React.FC<AddReviewModalProps> = ({
                             danger
                             ghost
                             className="mr-2"
-                            onClick={() => setIsModalOpen(false)}
+                            onClick={() => setReviewModalOpen(false)}
                         >
                             Cancel
                         </Button>

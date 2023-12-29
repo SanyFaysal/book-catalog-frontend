@@ -11,7 +11,7 @@ interface IReviewCardProps {
 
 const ReviewCard: React.FC<IReviewCardProps> = ({ review }) => {
     const { bookId } = useParams();
-    console.log({ bookId })
+
     return (
         <div className=" rounded-lg bg-slate-50 px-3 py-2">
             <div className="flex items-start justify-between ">
@@ -28,7 +28,7 @@ const ReviewCard: React.FC<IReviewCardProps> = ({ review }) => {
                     {/* <span className="ml-2 text-gray-600">{rating} stars</span> */}
                 </div>
             </div>
-            <p className="text-gray-700 text-lg mt-1 mb-2">{review?.review_text}</p>
+            <p className="text-gray-700 text-md mt-1 mb-2">{review?.review_text}</p>
 
         </div >
     );

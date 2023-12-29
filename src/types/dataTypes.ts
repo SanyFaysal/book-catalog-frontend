@@ -8,7 +8,8 @@ export type BookType = {
     title: string,
     author: string,
     genre: string,
-    publication_year: string
+    publication_year: string,
+    _id?: string
 }
 
 export type ReviewType = {
