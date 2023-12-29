@@ -21,9 +21,15 @@ const bookApi = apiSlice.injectEndpoints({
             }),
             providesTags: ["Books"],
         }),
+        getBookById: builder.query({
+            query: (bookId: string) => ({
+                url: `/book/${bookId}`,
+            }),
+            providesTags: ["Book"],
+        }),
 
     }),
 });
 
 
-export const { useAddBookMutation, useGetBooksQuery } = bookApi;
+export const { useAddBookMutation, useGetBooksQuery, useGetBookByIdQuery } = bookApi;

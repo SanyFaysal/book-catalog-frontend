@@ -1,12 +1,20 @@
 import { ClockCircleOutlined, StarFilled } from "@ant-design/icons";
+import { ReviewType } from "../../types/dataTypes";
+import { useParams } from "react-router-dom";
 
-const ReviewCard = () => {
-    const { rating, reviewText, reviewBy, reviewTime } = { rating: 5, reviewText: 'It helps me to come forward step of my life', reviewBy: "Analand Donald", reviewTime: "5 days ago" }
+interface IReviewCardProps {
+    review: ReviewType
+
+}
+
+const ReviewCard: React.FC<IReviewCardProps> = ({ review }) => {
+    const { bookId } = useParams();
+    console.log({ bookId })
     return (
         <div className=" rounded-lg bg-slate-50 p-3">
             <div className="flex items-center justify-between ">
                 <div className="text-xl  font-medium">
-                    {Array(4)
+                    {Array(review?.ratings)
                         .fill('')
                         .map((_, i) => (
                             <StarFilled key={i} className="text-yellow-400" />
@@ -19,10 +27,10 @@ const ReviewCard = () => {
                     {/* <span className="ml-2 text-gray-600">{rating} stars</span> */}
                 </div>
             </div>
-            <p className="text-gray-700">{reviewText}</p>
+            <p className="text-gray-700">{review?.review_text}</p>
             <div className="mt-2 flex items-center gap-2 text-gray-600 text-sm">
                 <ClockCircleOutlined />
-                {reviewTime}
+                {review?.created_at}
             </div>
         </div>
     );
