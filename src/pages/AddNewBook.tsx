@@ -48,7 +48,7 @@ export default function AddNewBook() {
   useEffect(() => {
     if (isLoading) toast.loading('Loading...', { id: 'addBook' })
     if (isSuccess) {
-      toast.success('Login success', { id: 'addBook' })
+      toast.success('Success', { id: 'addBook' })
     }
     if (isError) {
       const anyError: any = error;

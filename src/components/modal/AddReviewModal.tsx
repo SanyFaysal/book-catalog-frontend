@@ -27,6 +27,7 @@ const AddReviewModal: React.FC<AddReviewModalProps> = ({
         if (isLoading) toast.loading('Loading...', { id: 'addReview' })
         if (isSuccess) {
             toast.success('Success', { id: 'addReview' })
+            setIsModalOpen(false)
         }
         if (isError) {
             const anyError: any = error;
@@ -59,11 +60,12 @@ const AddReviewModal: React.FC<AddReviewModalProps> = ({
                     >
                         <TextArea name="review_text" />
                     </Form.Item>
-                    <Form.Item className="flex gap-2 mt-4 justify-end">
+                    <Form.Item className="flex gap-4 mt-4 justify-end">
                         <Button
                             type="primary"
                             danger
                             ghost
+                            className="mr-2"
                             onClick={() => setIsModalOpen(false)}
                         >
                             Cancel

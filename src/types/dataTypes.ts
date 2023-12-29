@@ -1,7 +1,7 @@
 export type UserType = {
     fullName: string,
     email: string,
-    _id: string
+    _id?: string
 }
 
 export type BookType = {
@@ -14,7 +14,12 @@ export type BookType = {
 export type ReviewType = {
     review_text: string,
     ratings: number,
-    reviewed_by: Partial<UserType> | string,
+    reviewed_by?: UserType,
     _id?: string,
     created_at?: string
+}
+
+export type IUpdateBookMutationType = {
+    data: Partial<BookType>,
+    token: string, bookId: string
 }

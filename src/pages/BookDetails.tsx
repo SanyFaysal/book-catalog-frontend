@@ -42,7 +42,7 @@ export default function BookDetails() {
                     <h5 className="font-semibold ">Reviews (<span>{book?.reviews?.length}</span>)</h5>
                     <Button onClick={() => setIsModalOpen(true)} className="flex items-center"><PlusOutlined /> Add Review</Button>
                 </div>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid lg:grid-cols-3 gap-3">
                     {book?.reviews?.map((review: ReviewType) => <ReviewCard review={review} key={review?._id} />)
                     }
                 </div>
