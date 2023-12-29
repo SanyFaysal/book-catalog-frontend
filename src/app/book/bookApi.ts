@@ -1,5 +1,5 @@
 
-import { BookType, UserType } from '../../types/dataTypes';
+import { BookType, ReviewType, UserType } from '../../types/dataTypes';
 import apiSlice from '../api';
 
 const bookApi = apiSlice.injectEndpoints({
@@ -27,9 +27,19 @@ const bookApi = apiSlice.injectEndpoints({
             }),
             providesTags: ["Book"],
         }),
-
+        addReview: builder.mutation({
+            query: ({ reviewData, token, bookId }: { reviewData: ReviewType, token: string, bookId: string }) => ({
+                url: `/book/add-review/${bookId}`,
+                method: "PATCH",
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+                body: reviewData,
+            }),
+            invalidatesTags: ["Book"],
+        }),
     }),
 });
 
 
-export const { useAddBookMutation, useGetBooksQuery, useGetBookByIdQuery } = bookApi;
+export const { useAddBookMutation, useGetBooksQuery, useGetBookByIdQuery, useAddReviewMutation } = bookApi;

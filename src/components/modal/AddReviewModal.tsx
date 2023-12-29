@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Input, Modal, Rate } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { ReviewType } from "../../types/dataTypes";
 import { getToken } from "../../utils/getToken";
+import { useAddReviewMutation } from "../../app/book/bookApi";
+import toast from "react-hot-toast";
 
 interface AddReviewModalProps {
     isModalOpen: boolean;
@@ -15,12 +17,22 @@ const AddReviewModal: React.FC<AddReviewModalProps> = ({
     setIsModalOpen,
     bookId,
 }) => {
-    const token = getToken()
-
-    const onFinish = (data: any) => {
-
+    const token = getToken() as string;
+    const [addReview, { isSuccess, isError, error, isLoading }] = useAddReviewMutation()
+    const onFinish = (reviewData: ReviewType) => {
+        addReview({ reviewData, bookId, token })
     };
 
+    useEffect(() => {
+        if (isLoading) toast.loading('Loading...', { id: 'addReview' })
+        if (isSuccess) {
+            toast.success('Success', { id: 'addReview' })
+        }
+        if (isError) {
+            const anyError: any = error;
+            toast.error(anyError.data.error, { id: 'addReview' });
+        }
+    }, [isSuccess, isLoading, isError, error])
     return (
         <>
             <Modal
