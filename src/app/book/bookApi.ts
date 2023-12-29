@@ -82,6 +82,12 @@ const bookApi = apiSlice.injectEndpoints({
             }),
             providesTags: ["Books"],
         }),
+        getAllPublicationYear: builder.query({
+            query: () => ({
+                url: `/book/all-publication-year`,
+            }),
+            providesTags: ["Books"],
+        }),
     }),
 });
 
@@ -92,5 +98,6 @@ export const {
     useAddReviewMutation,
     useEditBookMutation,
     useDeleteBookMutation,
-    useGetAllGenreQuery
+    useGetAllGenreQuery,
+    useGetAllPublicationYearQuery
 } = bookApi;

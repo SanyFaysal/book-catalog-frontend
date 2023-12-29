@@ -1,25 +1,40 @@
-import { DownOutlined } from "@ant-design/icons";
+
 import BookCard from "../components/card/BookCard";
 import { Button, Input, Select, Space } from "antd";
 import { useNavigate } from "react-router-dom";
-import { useGetAllGenreQuery, useGetBooksQuery } from "../app/book/bookApi";
+import { useGetAllGenreQuery, useGetAllPublicationYearQuery, useGetBooksQuery } from "../app/book/bookApi";
 
 import { useState } from "react";
+import { SearchBookType } from "../types/dataTypes";
 
 
 export default function AllBooks() {
   const navigate = useNavigate()
-  const [query, setQuery] = useState<{}>()
+  const [query, setQuery] = useState<SearchBookType>()
+
+
   const { data } = useGetBooksQuery(query);
   const { data: genres } = useGetAllGenreQuery(undefined);
+  const { data: publication_years } = useGetAllPublicationYearQuery(undefined);
+
+
   const genreOptions = genres?.data?.map((genre: string) => ({
     label: <p>{genre}</p>,
     value: genre,
   }))
-  // genreOptions?.unshift({ label: <p>All</p>, value: 'all' })
+  genreOptions?.unshift({ label: <p>All</p>, value: 'all' })
+
+  const publicationYearOptions = publication_years?.data?.map((year: string) => ({
+    label: <p>{year}</p>,
+    value: year,
+  }))
+  publicationYearOptions?.unshift({ label: <p>All</p>, value: 'all' })
 
   const handleGenreChange = (genre: string) => {
     setQuery({ ...query, genre: genre })
+  }
+  const handleYearChange = (year: string) => {
+    setQuery({ ...query, publication_year: year })
   }
 
   return (
@@ -32,10 +47,10 @@ export default function AllBooks() {
           <div className="grid grid-cols-4 gap-4 items-center justify-center">
             <div className="col-span-1">
               <Select
-
-                defaultValue="lucy"
+                defaultValue="Available publication year"
                 className="rounded-full w-full"
-                options={genreOptions}
+                options={publicationYearOptions}
+                onChange={handleYearChange}
               />
             </div>
             <Input

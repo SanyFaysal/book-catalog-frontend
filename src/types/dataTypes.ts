@@ -12,7 +12,11 @@ export type BookType = {
     _id?: string,
     added_by?: UserType | string
 }
-
+export type SearchBookType = {
+    searchTerm?: string,
+    genre?: string,
+    publication_year?: string
+}
 export type ReviewType = {
     review_text: string,
     ratings: number,
@@ -25,3 +29,4 @@ export type IUpdateBookMutationType = {
     data: Partial<BookType>,
     token: string, bookId: string
 }
+
