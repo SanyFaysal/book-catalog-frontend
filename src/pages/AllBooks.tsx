@@ -1,23 +1,27 @@
 import { DownOutlined } from "@ant-design/icons";
 import BookCard from "../components/card/BookCard";
-import { Button, Dropdown, Input, MenuProps, Space } from "antd";
-import { Link, useNavigate } from "react-router-dom";
-import { useGetBooksQuery } from "../app/book/bookApi";
+import { Button, Input, Select, Space } from "antd";
+import { useNavigate } from "react-router-dom";
+import { useGetAllGenreQuery, useGetBooksQuery } from "../app/book/bookApi";
 
-const items: MenuProps["items"] = [
-  {
-    label: <p>1st menu item</p>,
-    key: "0",
-  },
-  {
-    label: <p>2nd menu item</p>,
-    key: "1",
-  },
-];
+import { useState } from "react";
+
+
 export default function AllBooks() {
   const navigate = useNavigate()
-  const query = ""
-  const { data, isError, isLoading, isSuccess } = useGetBooksQuery(query)
+  const [query, setQuery] = useState<{}>()
+  const { data } = useGetBooksQuery(query);
+  const { data: genres } = useGetAllGenreQuery(undefined);
+  const genreOptions = genres?.data?.map((genre: string) => ({
+    label: <p>{genre}</p>,
+    value: genre,
+  }))
+  // genreOptions?.unshift({ label: <p>All</p>, value: 'all' })
+
+  const handleGenreChange = (genre: string) => {
+    setQuery({ ...query, genre: genre })
+  }
+
   return (
     <div className="mt-4">
       <h1 className="text-2xl text-center">All Books</h1>
@@ -27,36 +31,27 @@ export default function AllBooks() {
         <div className="col-span-3">
           <div className="grid grid-cols-4 gap-4 items-center justify-center">
             <div className="col-span-1">
-              <Dropdown
-                menu={{ items }}
-                trigger={["click"]}
-                className="border px-4 py-2 rounded-full"
-              >
-                <a onClick={(e) => e.preventDefault()}>
-                  <Space>
-                    Publication Year
-                    <DownOutlined />
-                  </Space>
-                </a>
-              </Dropdown>
+              <Select
+
+                defaultValue="lucy"
+                className="rounded-full w-full"
+                options={genreOptions}
+              />
             </div>
             <Input
               placeholder="Search books from here ..."
-              className="col-span-2 py-3 rounded-full px-4"
+              onChange={(e: any) => setQuery({ ...query, searchTerm: e.target.value })}
+              className="col-span-2 py-2 rounded-full px-4"
             />
             <div className="col-span-1">
-              <Dropdown
-                menu={{ items }}
-                trigger={["click"]}
-                className="border px-4 py-2 rounded-full"
-              >
-                <a onClick={(e) => e.preventDefault()}>
-                  <Space>
-                    Genre
-                    <DownOutlined />
-                  </Space>
-                </a>
-              </Dropdown>
+              <Select
+                style={{ margin: "20px !important" }}
+                defaultValue="Available Genre"
+                placeholder="Available Genre"
+                className="rounded-full w-full"
+                options={genreOptions}
+                onChange={handleGenreChange}
+              />
             </div>
           </div>
         </div>
@@ -68,7 +63,7 @@ export default function AllBooks() {
         </div>
       </div>
 
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-3 gap-4">
         {data?.data?.map((book: any) => (
           <BookCard key={book?._id} book={book} />
         ))}

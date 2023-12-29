@@ -7,16 +7,27 @@ import { PlusOutlined } from "@ant-design/icons";
 import { useGetBookByIdQuery } from "../app/book/bookApi";
 import { ReviewType } from "../types/dataTypes";
 import DeleteBookConfirmModal from "../components/modal/DeleteBookConfirmModal";
+import { checkOwner } from "../utils/checkOwner";
+import { useAppSelector } from "../app/hooks";
+import toast from "react-hot-toast";
+import SignInForReviewModal from "../components/modal/SinginForReviewModal";
 
 export default function BookDetails() {
+    const { user } = useAppSelector(state => state.auth)
     const navigate = useNavigate();
     const { id } = useParams();
     const bookId = id as string;
     const [reviewModalOpen, setReviewModalOpen] = useState<boolean>(false);
     const [deleteBookModal, setDeleteBookModal] = useState<boolean>(false);
-
+    const [signInForReviewModal, setSignInForReviewModal] = useState<boolean>(false)
     const { data } = useGetBookByIdQuery(bookId)
     const book = data?.data;
+
+    const isOwner = checkOwner(user?._id as string, book?.added_by)
+    const handleAddReviewOpen = () => {
+        if (!user?._id) setSignInForReviewModal(true)
+        else if (user?._id) setReviewModalOpen(true)
+    }
     return (
         <div className=" mx-auto my-5">
             <div className="flex justify-between">
@@ -29,12 +40,14 @@ export default function BookDetails() {
                     <p className="mt-3">Published in <span className="font-semibold">{book?.publication_year}</span></p>
                 </div>
                 <div className="flex gap-3">
-                    <Button onClick={() => navigate(`/edit-book/${bookId}`)} type="primary" ghost>
-                        Edit
-                    </Button>
-                    <Button onClick={() => setDeleteBookModal(true)} type="primary" danger ghost>
-                        Delete
-                    </Button>
+                    <>
+                        <Button onClick={() => navigate(`/edit-book/${bookId}`)} disabled={!isOwner} type="primary" ghost>
+                            Edit
+                        </Button>
+                        <Button onClick={() => setDeleteBookModal(true)} disabled={!isOwner} type="primary" danger ghost>
+                            Delete
+                        </Button>
+                    </>
                 </div>
             </div>
 
@@ -42,7 +55,7 @@ export default function BookDetails() {
             <div className="mt-5">
                 <div className="flex justify-between mb-4 items-center">
                     <h5 className="font-semibold ">Reviews (<span>{book?.reviews?.length}</span>)</h5>
-                    <Button onClick={() => setReviewModalOpen(true)} className="flex items-center"><PlusOutlined /> Add Review</Button>
+                    <Button onClick={handleAddReviewOpen} className="flex items-center"><PlusOutlined /> Add Review</Button>
                 </div>
                 <div className="grid lg:grid-cols-3 gap-3">
                     {book?.reviews?.map((review: ReviewType) => <ReviewCard review={review} key={review?._id} />)
@@ -51,6 +64,7 @@ export default function BookDetails() {
             </div>
             <AddReviewModal bookId={bookId} reviewModalOpen={reviewModalOpen} setReviewModalOpen={setReviewModalOpen} />
             <DeleteBookConfirmModal bookId={bookId} deleteBookModal={deleteBookModal} setDeleteBookModal={setDeleteBookModal} />
+            <SignInForReviewModal signInForReviewModal={signInForReviewModal} setSignInForReviewModal={setSignInForReviewModal} />
         </div>
     );
 }

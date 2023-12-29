@@ -4,6 +4,7 @@ import {
     ReviewType,
     UserType,
 } from "../../types/dataTypes";
+import { objectToQueryString } from "../../utils/queryString";
 import apiSlice from "../api";
 
 const bookApi = apiSlice.injectEndpoints({
@@ -41,9 +42,12 @@ const bookApi = apiSlice.injectEndpoints({
             invalidatesTags: ["Books"],
         }),
         getBooks: builder.query({
-            query: () => ({
-                url: `/book`,
-            }),
+            query: (query) => {
+                const queryString: any = objectToQueryString(query);
+                return ({
+                    url: `/book?${queryString}`,
+                })
+            },
             providesTags: ["Books"],
         }),
         getBookById: builder.query({
@@ -71,6 +75,13 @@ const bookApi = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ["Book"],
         }),
+
+        getAllGenre: builder.query({
+            query: () => ({
+                url: `/book/all-genre`,
+            }),
+            providesTags: ["Books"],
+        }),
     }),
 });
 
@@ -80,5 +91,6 @@ export const {
     useGetBookByIdQuery,
     useAddReviewMutation,
     useEditBookMutation,
-    useDeleteBookMutation
+    useDeleteBookMutation,
+    useGetAllGenreQuery
 } = bookApi;

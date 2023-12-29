@@ -3,10 +3,11 @@ export const bookGenres: string[] = [
     'Historical Fiction',
     'Science Fiction',
     'Fantasy',
-    'Mystery/Thriller',
+    'Mystery',
+    "Thriller",
     'Romance',
     'Adventure',
-    'Biography/Autobiography',
+    'Biography',
     'Memoir',
     'Self-Help',
     'History',
@@ -51,4 +52,4 @@ export const bookGenres: string[] = [
     'Graphic Memoir',
 ];
 
-console.log(bookGenres);
+

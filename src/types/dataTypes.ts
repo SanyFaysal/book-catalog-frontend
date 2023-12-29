@@ -9,7 +9,8 @@ export type BookType = {
     author: string,
     genre: string,
     publication_year: string,
-    _id?: string
+    _id?: string,
+    added_by?: UserType | string
 }
 
 export type ReviewType = {

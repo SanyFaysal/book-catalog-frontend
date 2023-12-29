@@ -28,6 +28,12 @@ export default function Navbar() {
         </div>
         <ul className="flex justify-end w-full  font-semibold  ">
           <Link
+            to={"/"}
+            className="hover:bg-slate-100 px-6 z-[999]  cursor-pointer   inline-block"
+          >
+            Home
+          </Link>
+          <Link
             to={"/all-books"}
             className="hover:bg-slate-100 px-6 z-[999]  cursor-pointer   inline-block"
           >

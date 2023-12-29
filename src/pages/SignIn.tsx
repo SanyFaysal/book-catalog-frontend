@@ -26,7 +26,7 @@ export default function SignIn() {
     if (isSuccess) {
       dispatch(setUser(data?.data))
       navigate('/')
-      console.log(data?.token, 'token')
+
       setToken(data?.token)
       toast.success('Login success', { id: 'signIn' })
     }
