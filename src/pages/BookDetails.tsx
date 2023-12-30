@@ -7,7 +7,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import { useGetBookByIdQuery } from "../app/book/bookApi";
 import { ReviewType } from "../types/dataTypes";
 import DeleteBookConfirmModal from "../components/modal/DeleteBookConfirmModal";
-import { checkOwner } from "../utils/checkOwner";
+import { checkOwner } from "../helpers/checkOwner";
 import { useAppSelector } from "../app/hooks";
 
 import SignInForReviewModal from "../components/modal/SinginForReviewModal";

@@ -6,7 +6,7 @@ import { useSignUpMutation } from "../app/user/userApi";
 import { useEffect } from "react";
 import { setUser } from "../app/user/userSlice";
 import { useAppDispatch } from "../app/hooks";
-import { setToken } from "../utils/setToken";
+import { setToken } from "../helpers/setToken";
 
 type FieldType = {
   fullName?: string;

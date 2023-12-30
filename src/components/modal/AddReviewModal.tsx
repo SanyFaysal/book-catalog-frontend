@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Form, Input, Modal, Rate } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { ReviewType } from "../../types/dataTypes";
-import { getToken } from "../../utils/getToken";
+import { getToken } from "../../helpers/getToken";
 import { useAddReviewMutation } from "../../app/book/bookApi";
 import toast from "react-hot-toast";
 

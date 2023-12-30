@@ -7,7 +7,7 @@ export default function Home() {
   query.limit = 10;
   const { data } = useGetBooksQuery(query)
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid lg:grid-cols-4 gap-4">
 
       {
         data?.data?.map((book: BookType) => (

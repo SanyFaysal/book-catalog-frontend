@@ -20,8 +20,25 @@ const userApi = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ["User"],
         }),
+        addWishlist: builder.mutation({
+            query: ({ token, bookId }: { token: string, bookId: string }) => ({
+                url: `/user/add-wishlist/${bookId}`,
+                method: "PATCH",
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            }),
+            invalidatesTags: ["User"],
+        }),
+
+        getBookById: builder.query({
+            query: (bookId: string) => ({
+                url: `/book/${bookId}`,
+            }),
+            providesTags: ["Book"],
+        }),
     }),
 });
 
 
-export const { useSignUpMutation, useLoginMutation } = userApi;
+export const { useSignUpMutation, useLoginMutation, useAddWishlistMutation } = userApi;

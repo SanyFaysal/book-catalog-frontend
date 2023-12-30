@@ -78,7 +78,7 @@ export default function AllBooks() {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid lg:grid-cols-4 gap-4">
         {data?.data?.map((book: any) => (
           <BookCard key={book?._id} book={book} />
         ))}

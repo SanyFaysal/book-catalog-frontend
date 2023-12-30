@@ -4,7 +4,7 @@ import {
     ReviewType,
     UserType,
 } from "../../types/dataTypes";
-import { objectToQueryString } from "../../utils/queryString";
+import { objectToQueryString } from "../../helpers/queryString";
 import apiSlice from "../api";
 
 const bookApi = apiSlice.injectEndpoints({

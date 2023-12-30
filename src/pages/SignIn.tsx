@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useAppDispatch } from '../app/hooks';
 import { setUser } from '../app/user/userSlice';
-import { setToken } from '../utils/setToken';
+import { setToken } from '../helpers/setToken';
 
 type FieldType = {
   email?: string;

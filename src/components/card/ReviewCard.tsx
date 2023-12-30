@@ -2,7 +2,7 @@
 import { ReviewType } from "../../types/dataTypes";
 import { useParams } from "react-router-dom";
 import { Rate } from "antd";
-import { formattedDate } from "../../utils/fotmattedDate";
+import { formattedDate } from "../../helpers/fotmattedDate";
 
 interface IReviewCardProps {
     review: ReviewType
