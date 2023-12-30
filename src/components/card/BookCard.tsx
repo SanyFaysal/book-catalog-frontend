@@ -18,13 +18,14 @@ import {
 import { getToken } from "../../helpers/getToken";
 import toast from "react-hot-toast";
 import { isAddedToWishlist } from "../../helpers/isAddedToWishlist";
+import { BookType } from "../../types/dataTypes";
 
 interface BookCardProps {
   book: any;
 }
 const BookCard: React.FC<BookCardProps> = ({ book }) => {
   const token = getToken() as string;
-
+  const { user: userData } = useAppSelector(state => state.auth);
   const { data } = useGetMeQuery(token);
   const user = data?.data || {}
   const isOwner = checkOwner(user?._id as string, book?.added_by);
@@ -37,7 +38,7 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
   ] = useRemoveWishlistMutation();
 
   const handleAddWishlist = (bookId: string) => {
-    if (user?._id) {
+    if (userData?._id) {
       addWishlist({ token, bookId });
     } else {
       toast.error("Please Login first !", { id: "wishlist" });
@@ -45,7 +46,7 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
   };
 
   const handleRemoveWishlist = (bookId: string) => {
-    if (user?._id) {
+    if (userData?._id) {
       removeWishlist({ token, bookId });
     } else {
       toast.error("Please Login first !", { id: "wishlist" });
@@ -66,7 +67,7 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
       extra={
         <div className="flex justify-end gap-2 items-center">
           {isOwner && (
-            <span className=" font-semibold text-sky-500 inline">Owner</span>
+            <span className=" text-sm text-sky-500 bg-sky-100 px-2 rounded-full inline">Owner</span>
           )}
         </div>
       }

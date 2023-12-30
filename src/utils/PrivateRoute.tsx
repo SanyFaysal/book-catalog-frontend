@@ -6,11 +6,14 @@ interface PrivateRouteProps {
     children: React.ReactNode
 }
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }: PrivateRouteProps) => {
-    const { user } = useAppSelector(state => state.auth);
-    if (!user?._id) {
-        return <Navigate to="/signin" replace={true} />
+    const { user, isLoading } = useAppSelector(state => state.auth);
+    if (isLoading) {
+        return <p className="text-center">Loading...</p>
     } else if (user?._id) {
         return children
+    }
+    else if (!user?._id) {
+        <Navigate to={'/signin'} replace={true} />
     }
 };
 

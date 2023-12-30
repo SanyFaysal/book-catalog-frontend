@@ -55,9 +55,17 @@ export default function Navbar() {
               </Link>{" "}
             </>
           ) : (
-            <p onClick={handleLogOut} className="hover:bg-slate-100 px-6 cursor-pointer  inline-block">
-              Logout
-            </p>
+            <>
+              <Link
+                to={"/wishlist"}
+                className="hover:bg-slate-100 px-6 cursor-pointer  inline-block"
+              >
+                Wishlist
+              </Link>
+              <p onClick={handleLogOut} className="hover:bg-slate-100 px-6 cursor-pointer  inline-block">
+                Logout
+              </p>
+            </>
           )}
         </ul>
       </Header>
