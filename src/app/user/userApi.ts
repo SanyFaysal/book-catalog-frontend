@@ -1,6 +1,5 @@
-
-import { UserType } from '../../types/dataTypes';
-import apiSlice from '../api';
+import { UserType } from "../../types/dataTypes";
+import apiSlice from "../api";
 
 const userApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -20,8 +19,17 @@ const userApi = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ["User"],
         }),
+        getMe: builder.query({
+            query: (token) => ({
+                url: `/user/me`,
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            }),
+            providesTags: ["User"],
+        }),
         addWishlist: builder.mutation({
-            query: ({ token, bookId }: { token: string, bookId: string }) => ({
+            query: ({ token, bookId }: { token: string; bookId: string }) => ({
                 url: `/user/add-wishlist/${bookId}`,
                 method: "PATCH",
                 headers: {
@@ -30,15 +38,23 @@ const userApi = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ["User"],
         }),
-
-        getBookById: builder.query({
-            query: (bookId: string) => ({
-                url: `/book/${bookId}`,
+        removeWishlist: builder.mutation({
+            query: ({ token, bookId }: { token: string; bookId: string }) => ({
+                url: `/user/remove-wishlist/${bookId}`,
+                method: "PATCH",
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
             }),
-            providesTags: ["Book"],
+            invalidatesTags: ["User"],
         }),
     }),
 });
 
-
-export const { useSignUpMutation, useLoginMutation, useAddWishlistMutation } = userApi;
+export const {
+    useSignUpMutation,
+    useLoginMutation,
+    useAddWishlistMutation,
+    useRemoveWishlistMutation,
+    useGetMeQuery,
+} = userApi;

@@ -16,7 +16,8 @@ const initialState: InitialStateType = {
     user: {
         fullName: "",
         email: "",
-        _id: ""
+        _id: "",
+        wishlist: []
     },
     isLoading: false,
     isError: false,

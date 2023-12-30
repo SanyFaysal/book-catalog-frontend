@@ -2,6 +2,7 @@ import {
   ClockCircleOutlined,
   HeartFilled,
   HeartOutlined,
+  LoadingOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
 import { Button, Card } from "antd";
@@ -9,9 +10,14 @@ import { Link } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import { checkOwner } from "../../helpers/checkOwner";
 import { useEffect, useState } from "react";
-import { useAddWishlistMutation } from "../../app/user/userApi";
+import {
+  useAddWishlistMutation,
+  useGetMeQuery,
+  useRemoveWishlistMutation,
+} from "../../app/user/userApi";
 import { getToken } from "../../helpers/getToken";
 import toast from "react-hot-toast";
+import { isAddedToWishlist } from "../../helpers/isAddedToWishlist";
 
 interface BookCardProps {
   book: any;
@@ -19,22 +25,41 @@ interface BookCardProps {
 const BookCard: React.FC<BookCardProps> = ({ book }) => {
   const token = getToken() as string;
 
-  const { user } = useAppSelector((state) => state.auth);
+  const { data } = useGetMeQuery(token);
+  const user = data?.data || {}
   const isOwner = checkOwner(user?._id as string, book?.added_by);
-
+  const wishListed = isAddedToWishlist(user?.wishlist as any[], book?._id);
   const [addWishlist, { isLoading, isSuccess, isError, error }] =
     useAddWishlistMutation();
+  const [
+    removeWishlist,
+    { isLoading: loading, isSuccess: success, isError: isErr, error: err },
+  ] = useRemoveWishlistMutation();
 
   const handleAddWishlist = (bookId: string) => {
-    addWishlist({ token, bookId });
+    if (user?._id) {
+      addWishlist({ token, bookId });
+    } else {
+      toast.error("Please Login first !", { id: "wishlist" });
+    }
+  };
+
+  const handleRemoveWishlist = (bookId: string) => {
+    if (user?._id) {
+      removeWishlist({ token, bookId });
+    } else {
+      toast.error("Please Login first !", { id: "wishlist" });
+    }
   };
 
   useEffect(() => {
-    if (isError) {
-      const anyError: any = error;
+    if (isError || isErr) {
+      const anyError: any = error ?? err;
       toast.error(anyError?.data?.error, { id: "wishlist" });
     }
-  }, [isError]);
+
+  }, [isError, isSuccess, success, wishListed, isErr]);
+
   return (
     <Card
       title={book?.title}
@@ -52,23 +77,20 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
       <p>Genre : {book?.genre}</p>{" "}
       <p className=""> Published in {book?.publication_year}</p>
       <div className="flex justify-between gap-3 mt-3">
-        {/* <HeartOutlined className="text-xl  px-3 rounded" /> */}
-        {isLoading ? (
-          <Button> Loading...</Button>
-        ) : isSuccess ? (
-          <Button>
-            <HeartFilled className="text-red-500 mr-1" />
+        {loading || isLoading ? (
+          <Button><LoadingOutlined /></Button>
+        ) : wishListed ? (
+          <Button onClick={() => handleRemoveWishlist(book?._id)}>
+            <HeartFilled className="text-red-500" />
           </Button>
         ) : (
-          <Button>
-            {" "}
+          <Button onClick={() => handleAddWishlist(book?._id)}>
             <>
               <HeartOutlined className="mr-1" />
               Wishlist
             </>
           </Button>
         )}
-
         <Link
           to={`/book-details/${book?._id}`}
           className="flex gap-2 items-center"

@@ -1,7 +1,8 @@
 export type UserType = {
     fullName: string,
     email: string,
-    _id?: string
+    _id?: string,
+    wishlist?: []
 }
 
 export type BookType = {
