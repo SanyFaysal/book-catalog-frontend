@@ -3,7 +3,9 @@ import BookCard from "../components/card/BookCard";
 import { BookType } from "../types/dataTypes";
 
 export default function Home() {
-  const { data } = useGetBooksQuery()
+  const query: any = {};
+  query.limit = 10;
+  const { data } = useGetBooksQuery(query)
   return (
     <div className="grid grid-cols-3 gap-4">
 

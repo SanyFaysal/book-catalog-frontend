@@ -1,4 +1,4 @@
-import { Button, Card } from "antd";
+import { Button } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import ReviewCard from "../components/card/ReviewCard";
 import AddReviewModal from "../components/modal/AddReviewModal";
@@ -9,7 +9,7 @@ import { ReviewType } from "../types/dataTypes";
 import DeleteBookConfirmModal from "../components/modal/DeleteBookConfirmModal";
 import { checkOwner } from "../utils/checkOwner";
 import { useAppSelector } from "../app/hooks";
-import toast from "react-hot-toast";
+
 import SignInForReviewModal from "../components/modal/SinginForReviewModal";
 
 export default function BookDetails() {
