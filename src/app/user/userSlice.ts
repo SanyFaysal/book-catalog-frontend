@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { UserType } from "../../types/dataTypes";
-import { server_url } from "../../config";
+
 // import { ErrorPayload } from "vite/types/hmrPayload.js";
 
 
@@ -26,7 +26,7 @@ const initialState: InitialStateType = {
 }
 
 export const fetchUser = createAsyncThunk('user/fetchUser', async (token: string) => {
-    const response = await fetch(`${server_url}/user/me`, {
+    const response = await fetch(`https://book-catalog-backend-wheat.vercel.app/user/me`, {
         headers: {
             authorization: `Bearer ${token}`,
         },

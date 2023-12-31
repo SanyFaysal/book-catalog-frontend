@@ -2,7 +2,6 @@ import {
     BookType,
     IUpdateBookMutationType,
     ReviewType,
-
 } from "../../types/dataTypes";
 import { objectToQueryString } from "../../helpers/queryString";
 import apiSlice from "../api";

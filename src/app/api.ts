@@ -1,11 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { server_url } from "../config";
 
 
 const apiSlice = createApi({
     reducerPath: "apiSlice",
     baseQuery: fetchBaseQuery({
-        baseUrl: server_url,
+        baseUrl: `https://book-catalog-backend-wheat.vercel.app/api/v1`,
     }),
     tagTypes: ['User', 'Book', 'Books'],
     endpoints: () => ({}),
