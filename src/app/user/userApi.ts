@@ -48,6 +48,17 @@ const userApi = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ["User"],
         }),
+        updateWishlist: builder.mutation({
+            query: ({ token, data }: { token: string; data: any }) => ({
+                url: `/user/update-wishlist`,
+                method: "PATCH",
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+                body: data
+            }),
+            invalidatesTags: ["User"],
+        }),
     }),
 });
 
@@ -57,4 +68,5 @@ export const {
     useAddWishlistMutation,
     useRemoveWishlistMutation,
     useGetMeQuery,
+    useUpdateWishlistMutation
 } = userApi;

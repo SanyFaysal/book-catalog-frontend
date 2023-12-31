@@ -11,11 +11,11 @@ export default function Wishlist() {
 
     return (
         <div>
-            <h1 className="text-2xl text-center">Your Wishlist</h1>
-            <div className="grid grid-cols-3 gap-4 mt-4">
+            <h1 className="text-3xl text-center mt-5 mb-8">Your Wishlist</h1>
 
+            <div className="grid grid-cols-3 gap-4 mt-4">
                 {
-                    user?.wishlist?.map((book: any) => <WishListCard user={user} book={book} key={book?._id} />)
+                    user?.wishlist?.map((book: any) => <WishListCard book={book} key={book?._id} />)
                 }
             </div>
         </div>
