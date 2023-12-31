@@ -32,7 +32,9 @@ export default function AddNewBook() {
   }
   const handleYearChange: DatePickerProps['onChange'] = (date, dateString) => {
     setPublication_year(dateString)
+    console.log(date)
   };
+
   const onFinish = (values: any) => {
     const bookData = {
       title: values.title,

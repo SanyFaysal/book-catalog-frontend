@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Button, Modal } from "antd";
 
 import { getToken } from "../../helpers/getToken";
-import { useAddReviewMutation, useDeleteBookMutation } from "../../app/book/bookApi";
+import { useDeleteBookMutation } from "../../app/book/bookApi";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 

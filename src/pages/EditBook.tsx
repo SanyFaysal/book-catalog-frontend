@@ -30,6 +30,7 @@ export default function EditBook() {
     const [editBook, { isSuccess: success, isError, error, isLoading }] = useEditBookMutation()
 
     const handleYearChange: DatePickerProps['onChange'] = (date, dateString) => {
+        console.log(date)
         setPublication_year(dateString)
     };
 

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Button, Form, Input, Modal, Rate } from "antd";
+import React, { useEffect } from "react";
+import { Button, Form, Modal, Rate } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { ReviewType } from "../../types/dataTypes";
 import { getToken } from "../../helpers/getToken";

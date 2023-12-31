@@ -1,15 +1,15 @@
 import {
-  ClockCircleOutlined,
+
   HeartFilled,
   HeartOutlined,
   LoadingOutlined,
-  PlusOutlined,
+
 } from "@ant-design/icons";
 import { Button, Card } from "antd";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import { checkOwner } from "../../helpers/checkOwner";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   useAddWishlistMutation,
   useGetMeQuery,
@@ -18,7 +18,7 @@ import {
 import { getToken } from "../../helpers/getToken";
 import toast from "react-hot-toast";
 import { isAddedToWishlist } from "../../helpers/isAddedToWishlist";
-import { BookType } from "../../types/dataTypes";
+
 
 interface BookCardProps {
   book: any;
