@@ -1,6 +1,6 @@
 
 import { ReviewType } from "../../types/dataTypes";
-import { useParams } from "react-router-dom";
+
 import { Rate } from "antd";
 import { formattedDate } from "../../helpers/fotmattedDate";
 
@@ -10,7 +10,7 @@ interface IReviewCardProps {
 }
 
 const ReviewCard: React.FC<IReviewCardProps> = ({ review }) => {
-    const { bookId } = useParams();
+
 
     return (
         <div className=" rounded-lg bg-slate-50 px-3 py-2">
