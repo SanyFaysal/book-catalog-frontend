@@ -1,9 +1,5 @@
 # Book Catalog website
 
-## Description
-
-Provide a detailed description of your project, including its purpose and key features.
-
 # Frontend
 
 #### Live link [here](https://book-catalog-frontend-pi.vercel.app/)
